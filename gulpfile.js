@@ -10,7 +10,7 @@ let gulp = require('gulp'),
      * Send any less files in bower to the
      * @returns {*}
      */
-    wireDepLessToCss = function wireDepLessToCss() {
+    wireDepLessToCss = () => {
         let wiredep = require('wiredep'),
             stream = require('merge-stream')(),
             less = wiredep().less,
@@ -27,7 +27,7 @@ let gulp = require('gulp'),
      * Compile Stylus to CSS
      * @returns {*}
      */
-    wireDepStylusToCss = function wireDepStylusToCss() {
+    wireDepStylusToCss = () => {
         let wiredep = require('wiredep'),
             stream = require('merge-stream')(),
             stylus = wiredep().styl,
@@ -55,7 +55,9 @@ let gulp = require('gulp'),
             stream.add(scss);
         }
         if (!stream.isEmpty()) {
-
+            stream.pipe(
+                $.sass()
+            ).pipe(cssDest)
         }
     },
 
@@ -78,37 +80,49 @@ let gulp = require('gulp'),
             .pipe($.eslint.format());
     },
     wiredepInject = function wiredepInject() {
-        debugger;
         let wiredep = require('wiredep'),
             sources = wiredep(),
             js,
             css,
             jsDest,
             cssDest,
+            finalDest,
+            outputJS,
+            outputCSS,
             target;
         js = gulp.src(sources.js);
         css = gulp.src(sources.css);
         jsDest = gulp.dest('./public/js');
         cssDest = gulp.dest('./public/css');
-        target = gulp.src('./public/**/*.html');
-
-        return target
-            .pipe(
-                $.inject(
-                    js.pipe(
-                        $.concat('deps.js')
-                    ).pipe(jsDest),
-                    injectOptions
-                )
-            ).pipe(
+        finalDest = './public';
+        target = gulp.src([
+            './public/**/*.html',
+            './public/**/*.pug'
+        ]);
+        outputJS = 'deps.js';
+        outputCSS = 'deps.css';
+        if (js) {
+            target
+                .pipe(
+                    $.inject(
+                        js.pipe(
+                            $.concat(outputJS)
+                        ).pipe(jsDest),
+                        injectOptions
+                    )
+                ).pipe(gulp.dest(finalDest))
+        }
+        if (css) {
+            target.pipe(
                 $.inject(
                     css.pipe(
-                        $.concat('deps.css')
+                        $.concat(outputCSS)
                     ).pipe(cssDest),
                     injectOptions
                 )
-            ).pipe(gulp.dest('./public'))
-            .pipe(debug());
+            ).pipe(gulp.dest(finalDest))
+        }
+        return target;
     },
     nodemon = function nodemon() {
         let args = require('yargs').argv,
@@ -121,7 +135,7 @@ let gulp = require('gulp'),
                 watch: jsFiles
             };
         return $.nodemon(options)
-            .on('restart', function (ev) {
+            .on('restart', (ev) => {
                 console.log("Restart");
             });
     },
