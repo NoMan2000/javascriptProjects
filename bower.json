@@ -1,0 +1,26 @@
+{
+  "name": "javascript-projects",
+  "description": "JavaScript Projects",
+  "main": "index.js",
+  "authors": [
+    "Michael Soileau <webart.video@gmail.com>"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "javascript",
+    "node"
+  ],
+  "homepage": "https://github.com/NoMan2000/javascriptProjects",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "tachyons": "^4.6.1",
+    "lodash": "^4.17.4"
+  }
+}
