@@ -1,0 +1,23 @@
+{
+  "name": "javascript-projects",
+  "version": "1.0.0",
+  "description": "JavaScript Projects",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NoMan2000/javascriptProjects.git"
+  },
+  "keywords": [
+    "javascript",
+    "node"
+  ],
+  "author": "Michael Soileau <webart.video@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NoMan2000/javascriptProjects/issues"
+  },
+  "homepage": "https://github.com/NoMan2000/javascriptProjects#readme"
+}
