@@ -2,9 +2,9 @@ extends layout.pug
 block content
     form(action='/pug/login', method='post' class='pa3')
         label(for='username') username:
-        input(type='text' name='username' id='username')
+        input(type='text' name='username' id='username' required)
         br
         label(for='password') password:
         input(type='password' name='password' id='password')
         br
-        input(type='submit' name='submit' id='submit')
+        input(type='submit' name='submit' id='submit' required)
