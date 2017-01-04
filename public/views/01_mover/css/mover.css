@@ -1,0 +1,12 @@
+.t-disp {
+    display:table;
+}
+.tcell-disp {
+    display:table-cell;
+}
+.va-center {
+    vertical-align: center;
+}
+.paleOrange {
+    color: #FFE3A5
+}

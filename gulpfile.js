@@ -82,6 +82,8 @@ let gulp = require('gulp'),
     wiredepInject = function wiredepInject() {
         let wiredep = require('wiredep'),
             sources = wiredep(),
+            merge = require('merge-stream'),
+            baseCSS = gulp.src('./public/src/css/*.css'),
             js,
             css,
             jsDest,
@@ -90,8 +92,20 @@ let gulp = require('gulp'),
             outputJS,
             outputCSS,
             target;
-        js = gulp.src(sources.js);
-        css = gulp.src(sources.css);
+        if (sources.js) {
+            js = gulp.src(sources.js);
+        }
+        if (sources.less) {
+            let less = gulp.src(sources.less);
+            let lessStream = less.pipe(
+                $.less()
+            );
+            baseCSS = merge(lessStream, baseCSS);
+        }
+        if (sources.css) {
+            css = gulp.src(sources.css);
+            css = merge(css, baseCSS);
+        }
         jsDest = gulp.dest('./public/js');
         cssDest = gulp.dest('./public/css');
         finalDest = './public';

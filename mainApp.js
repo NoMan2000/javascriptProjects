@@ -1,7 +1,9 @@
 let mainApp = function () {
     const express = require('express'),
         app = express(),
+        https = require('https'),
         port = process.env.PORT || 5000,
+        securePort = process.env.SECURE_PORT || 4433,
         cookieParser = require('cookie-parser'),
         statusHandler = require('status-codes'),
         session = require('express-session'),
@@ -10,15 +12,16 @@ let mainApp = function () {
         logger = require('morgan'),
         favicon = require('serve-favicon'),
         mongoose = require('connect-mongo'),
+        pem = require('pem'),
         flash = require('connect-flash');
 
     let LocalStrategy = require('passport-local').Strategy;
 
-// Extract pug
+    // Extract pug
     app.set('views', './public/views');
     app.set('view engine', 'pug');
 
-// Extract session
+    // Extract session
     app.use(cookieParser());
 
     app.use(session({
@@ -56,9 +59,18 @@ let mainApp = function () {
     app.use(passport.initialize());
     app.use(passport.session());
 
-    app.get('/pug', (req, resp) => {
-        resp.render('index');
+    /**
+     * Create a self-signed key.  Note that this requires some additional setup because browsers block self-signed keys.
+     */
+    pem.createCertificate({days: 1, selfSigned: true}, (err, keys) => {
+        if (err) {
+            console.log(err);
+            return null;
+        }
+        https.createServer({key: keys.serviceKey, cert: keys.certificate}, app).listen(securePort);
     });
+
+
 
     app.listen(port, (err) => {
         if (err) {
@@ -66,7 +78,7 @@ let mainApp = function () {
         }
         console.log('Running server on ' + port);
     });
-
+    // Next is the next matching parameter
     let websessionAuth = (req, resp, next) => {
         if (resp.authenticated && next) {
             return next();
@@ -79,17 +91,10 @@ let mainApp = function () {
     }]);
 
     app.get('/pug/profile', [requireAuthentication, (req, res, next) => {
-        console.log(req.session);
         res.render('profile');
     }]);
 
-    app.get('/login', (req, resp, login) => {
-        resp.render('login');
-    });
 
-    app.get('/pug/login', (req, resp, next) => {
-        resp.render('login');
-    });
 
     app.post('/pug/login', passport.authenticate('local',
         {
@@ -98,19 +103,13 @@ let mainApp = function () {
             failureFlash: true
         }
     ));
-    /** Will not run
-     app.post('/pug/login', (req, resp, next) => {
-    console.log(req.body);
-    resp.render('login');
-});
-     **/
-
     /**
      * Use static files
      * Since the static files are the last piece of the puzzle, we want it to avoid any
      * dynamic middleware.
      */
     app.use(express.static('./public'));
+    app.use(express.static('./public/views'));
 
     /**
      * This defines an ErrorHandler for the application.
