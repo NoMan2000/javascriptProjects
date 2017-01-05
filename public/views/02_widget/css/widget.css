@@ -1,0 +1,6 @@
+.btn, .btn:active, .btn:hover, .btn:focus,
+.btn-danger, .btn-danger:active, .btn-danger:hover, .btn-primary:focus
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+    outline: none;
+    border: none;
+}
