@@ -8,12 +8,14 @@
         smoothStart = doc.querySelector('#smoothWidget'),
         rotations = 0,
         smoothDegrees = 0,
+        smoothOffset = null,
         intervalID = null,
         rotateSpokes = function rotateSpokes() {
             var date = new Date(),
                 currentSeconds = date.getSeconds(),
                 offset,
                 convertToDegrees = Math.floor(((currentSeconds / 60) * 360));
+            smoothDegrees = currentSeconds;
             if (convertToDegrees % 360 === 0) {
                 rotations += 1;
             }
