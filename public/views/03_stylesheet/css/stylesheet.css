@@ -1,0 +1,78 @@
+:root {
+    --blue: #82d2ff;
+    --yellow: #d8d28a;
+    --paddingHeight: 1rem;
+    --outlineStyle: solid;
+    --defaultPadding: var(--outlineStyle) var(--paddingHeight) var(--blue);
+    --defaultHeight: 25rem;
+    --defaultWidth: 25rem;
+    --darkGrey: #4b4b4b;
+    --largeFont: 3rem;
+    --lineHeight: calc(var(--defaultHeight) - (var(--paddingHeight) * 2));
+    --display: inline-block;
+}
+div[is="x-card"] {
+    display: var(--display);
+}
+.documentBorder {
+    border: var(--defaultPadding);
+    height: var(--defaultHeight);
+    width: var(--defaultWidth);
+    background: var(--darkGrey);
+    display: var(--display);
+}
+.documentText {
+    color: var(--yellow);
+    line-height: var(--lineHeight);
+    font-size: var(--largeFont);
+}
+
+.normal {
+    border: solid 1px black;
+    height: 10rem;
+    width: 50rem;
+    background: darkslategrey;
+    display: inline-block;
+}
+
+.normal > .documentText {
+    color: white;
+    line-height:10rem;
+    text-align:center;
+    font-size:1.5rem;
+}
+
+/*
+Note:  These are some of the old ways of doing it.  The ::shadow selector is being deprecated
+
+div::shadow x-card {
+    --blue: #2f2eff;
+    --yellow: #d8ce35;
+    --paddingHeight: 2rem;
+    --outlineStyle: dotted;
+    --defaultPadding: var(--outlineStyle) var(--paddingHeight) var(--blue);
+    --defaultHeight: 40rem;
+    --defaultWidth: 40rem;
+    --darkGrey: #868686;
+    --largeFont: 3rem;
+    --lineHeight: calc(var(--defaultHeight) - (var(--paddingHeight) * 2));
+    --display: block;
+    border: var(--defaultPadding);
+    height: var(--defaultHeight);
+    width: var(--defaultWidth);
+    background: var(--darkGrey);
+    display: var(--display);
+}
+
+div::shadow x-card .documentText {
+    color: var(--yellow);
+    line-height: var(--lineHeight);
+    font-size: var(--largeFont);
+}
+
+div::shadow x-card .text-center {
+    text-align:center;
+}
+**/
+
+

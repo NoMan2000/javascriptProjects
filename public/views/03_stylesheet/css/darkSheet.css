@@ -1,0 +1,49 @@
+html,body {
+    min-width:100%;
+    min-height:100%;
+    background: #232323;
+}
+
+:root {
+    --blue: #192e38;
+    --yellow: #47452d;
+    --paddingHeight: 1rem;
+    --outlineStyle: solid;
+    --defaultPadding: var(--outlineStyle) var(--paddingHeight) var(--blue);
+    --defaultHeight: 25rem;
+    --defaultWidth: 25rem;
+    --darkGrey: #dddddd;
+    --largeFont: 3rem;
+    --lineHeight: calc(var(--defaultHeight) - (var(--paddingHeight) * 2));
+    --display: inline-block;
+}
+div[is="x-card"] {
+    display: var(--display);
+}
+.documentBorder {
+    border: var(--defaultPadding);
+    height: var(--defaultHeight);
+    width: var(--defaultWidth);
+    background: var(--darkGrey);
+    display: var(--display);
+}
+.documentText {
+    color: var(--yellow);
+    line-height: var(--lineHeight);
+    font-size: var(--largeFont);
+}
+
+.normal {
+    border: solid 1px #e4e4e4;
+    height: 10rem;
+    width: 50rem;
+    background: #76c6c6;
+    display: inline-block;
+}
+
+.normal > .documentText {
+    color: #4b4b4b;
+    line-height:10rem;
+    text-align:center;
+    font-size:1.5rem;
+}

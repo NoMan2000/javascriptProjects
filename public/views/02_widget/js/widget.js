@@ -2,13 +2,12 @@
     "use strict";
     var widget = doc.querySelector('#widget'),
         spokes = widget.querySelector('.b'),
-        innerWheel = widget.querySelectorAll('.a')[1],
+        innerWheel = widget.querySelectorAll('.a')[0],
         start = doc.querySelector('#startWidget'),
         stop = doc.querySelector('#stopWidget'),
         smoothStart = doc.querySelector('#smoothWidget'),
         rotations = 0,
         smoothDegrees = 0,
-        smoothOffset = null,
         intervalID = null,
         rotateSpokes = function rotateSpokes() {
             var date = new Date(),

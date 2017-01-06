@@ -1,8 +1,8 @@
 (function (global) {
     "use strict";
-    var intCheckers = {
+    var intRegex = /^[\-+]?[0-9]+$/,
+        intCheckers = {
         isInt: function isInt(value) {
-            var intRegex = /^[\-+]?[0-9]+$/;
             return intRegex.test(value);
         },
         isNumeric: function isNumeric(n) {
